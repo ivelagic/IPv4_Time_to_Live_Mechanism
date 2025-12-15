@@ -1,2 +1,3 @@
 # IPv4_Time_to_Live_Mechanism
 # Uvod
+Mrežni sloj Interneta omogućava usluge transportnom sloju, dok istovremeno koristi usluge sloja veze podataka (engl. link layer).Mrežni sloj pruža usluge paketizacije i usmjeravanja paketa od izvora do odredišta.Glavno pitanje na mrežnom sloju je adresiranje.Za identifikaciju veze svakog uređaja s Internetom naziva se internet adresa ili IP adresa.IPv4 adresa sastoji se od 32 bita.IPv4 adrese su jedinstvene, odnosno svaka adresa definiše jednu i samo jednu vezu s Internetom.Ako uređaj ima dvije veze prema Internetu, preko dvije različite mreže, tada ima i dvije IPv4 adrese [1].
