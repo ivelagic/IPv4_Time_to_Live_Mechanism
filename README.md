@@ -32,8 +32,8 @@ Definiše maksimalan broj obrade kroz koje IPv4 paket može proći. Prvobitno di
 U okviru ovog projekta, TTL modul prilikom prijema IPv4 paketa smanjuje TTL vrijednost za jedan. Ukoliko nakon dekrementacije TTL postane nula,paket se odbacuje, aktivira se signal `drop`, te se generiše ICMPv4
 Time Exceeded poruka koja se šalje nazad pošiljaocu [1].
 
-#Scenariji testiranja
+# Scenariji testiranja
 
 
-#Litearatura
+# Literatura
 [1] B. A. Forouzan, "Data Communications and Networking," 5th ed., New York: McGraw-Hill, 2013, ISBN 978-0-07-337622-6.
