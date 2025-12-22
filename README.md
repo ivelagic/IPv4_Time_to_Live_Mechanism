@@ -6,18 +6,34 @@ Ovaj projekat implementira IPv4 Time To Live (TTL) mehanizam u obliku hardversko
 
 # IPv4 zaglavlje
 **Version = (4)**: Definiše verziju IPv4 protokola.
+
 **IHL (Header Length)** : Označava ukupnu dužinu zaglavlja, koja je promjenjiva (između 20 i 60 bajta).
+
 **Type of Service** : Označava prioritet i tip usluge paketa; prva tri bita definišu prioritet datagrama, dok naredna četiri bita označavaju tip usluge.
+
 **Total Length** : Polje koje definiše dužinu zaglavlja zajedno sa podacima IPv4 datagrama u bajtovima.
+
 **Time To Live (TTL)** : polje definiše maksimalan broj mrežnih čvorova.
+
 **Identification** : Polje za identifikaciju fragmenata istog IPv4 paketa.
+
 **Flags / Fragment Offset** : Polja za upravljanje fragmentacijom.
+
 **Protocol** : 8-bitno polje koje definiše protokol višeg nivoa, npr.(ICMP), određuje konačni odredišni protokol kojem se IPv4 datagram isporučuje.
+
 **Header Checksum** : Služi za provjeru ispravnosti IPv4 zaglavlja. 
+
 **Source IP Address** : 32-bitno polje definiše IPv4 adresu izvora.
-**Destination IP Address** : 32-bitno polje koje definiše IPv4 adresu odredišta.
+
+**Destination IP Address** : 32-bitno polje koje definiše IPv4 adresu odredišta [1].
 
 # Time To Live (TTL) polje 
-Definiše maksimalan broj obrade kroz koje IPv4 paket može proći. Prvobitno dizajniran da sadrži vremensku oznaku, koju bi smanjivao svaki postojeći ruter te  datagram bi bio odbačen kada vrijednost postane nula. Funkcija ovog polja je da se koristi za kontrolu maksimalnog broja skokova. Izvorišni host kada pošalje datagram, pohranjuje broj u ovo polje gdje je vrijednost približno 2 puta veća od maksimalnog broja ruta između bilo koja dva hosta. Vrijednost TTL-a se dekrementira prilikom obrade paketa. Ovo polje je značajno pri oštećenju tabele usmijeravanja na internetu. Polje ograničava vijek trajanja datagrama, gdje datagram može putovati dugo vremena između dva ili više rutera a da nikada ne dođe do odredišnog hosta. Druga funkcija polja je namjerno ograničenje putovanja paketa, te ga ograničiti na lokalnu mrežu.[1]
+Definiše maksimalan broj obrade kroz koje IPv4 paket može proći. Prvobitno dizajniran da sadrži vremensku oznaku, koju bi smanjivao svaki postojeći ruter te  datagram bi bio odbačen kada vrijednost postane nula. Funkcija ovog polja je da se koristi za kontrolu maksimalnog broja skokova. Izvorišni host kada pošalje datagram, pohranjuje broj u ovo polje gdje je vrijednost približno 2 puta veća od maksimalnog broja ruta između bilo koja dva hosta. Vrijednost TTL-a se dekrementira prilikom obrade paketa. Ovo polje je značajno pri oštećenju tabele usmijeravanja na internetu. Polje ograničava vijek trajanja datagrama, gdje datagram može putovati dugo vremena između dva ili više rutera a da nikada ne dođe do odredišnog hosta. Druga funkcija polja je namjerno ograničenje putovanja paketa, te ga ograničiti na lokalnu mrežu.
 U okviru ovog projekta, TTL modul prilikom prijema IPv4 paketa smanjuje TTL vrijednost za jedan. Ukoliko nakon dekrementacije TTL postane nula,paket se odbacuje, aktivira se signal `drop`, te se generiše ICMPv4
-Time Exceeded poruka koja se šalje nazad pošiljaocu.
+Time Exceeded poruka koja se šalje nazad pošiljaocu [1].
+
+#Scenariji testiranja
+
+
+#Litearatura
+[1] B. A. Forouzan, "Data Communications and Networking," 5th ed., New York: McGraw-Hill, 2013, ISBN 978-0-07-337622-6.
