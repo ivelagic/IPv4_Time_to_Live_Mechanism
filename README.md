@@ -5,6 +5,13 @@ Mrežni sloj Interneta omogućava usluge transportnom sloju, dok istovremeno kor
 Ovaj projekat implementira IPv4 Time To Live (TTL) mehanizam u obliku hardverskog modula. Modul prima IPv4 pakete putem Avalon-ST interfejsa, dekrementira TTL polje i odlučuje da li se paket prosljeđuje ili odbacuje.
 
 # IPv4 zaglavlje
+Na slici 1 prikazano je IPv4 zaglavlje:
+
+![Slika1 1: IPv4 header](Graficki_prikaz/IPv4_header.png "IPv4 zaglavlje")
+
+*Slika 1: IPv4 zaglavlje*
+
+
 **Version = (4)**: Definiše verziju IPv4 protokola.
 
 **IHL (Header Length)** : Označava ukupnu dužinu zaglavlja, koja je promjenjiva (između 20 i 60 bajta).
