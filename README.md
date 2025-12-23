@@ -7,9 +7,13 @@ Ovaj projekat implementira IPv4 Time To Live (TTL) mehanizam u obliku hardversko
 # IPv4 zaglavlje
 Na slici 1 prikazano je IPv4 zaglavlje:
 
-![Slika1 1: IPv4 header](Graficki_prikaz/IPv4_header.png "IPv4 zaglavlje")
+<p align="center">
+  <img src="Graficki_prikaz/IPv4_header.png " width="500">
+</p>
+<p align="center">
+  <em> Slika 1: IPv4 zaglavlje</em>
+</p>
 
-*Slika 1: IPv4 zaglavlje*
 
 
 **Version = (4)**: Definiše verziju IPv4 protokola.
@@ -45,15 +49,22 @@ Time Exceeded poruka koja se šalje nazad pošiljaocu [1].
 U prvom testnom scenariju razmatra se obrada IPv4 paketa čija je vrijednost TTL polja veća od jedan. Pošiljalac (IP_PACKET_SENDER) formira Ethernet okvir u čijem se podatkovnom polju nalazi IPv4 paket, a Type polje označava da se radi o IPv4 protokolu. Nakon prijema paketa od strane primaoca (TTL_MODULE), obrađuje se IPv4 zaglavlje. Provjerava se TTL polje, te nakon što se utvrdi da TTL nije istekao, dekrementira se njegova vrijednost i paket se prosljeđuje dalje bez generisanja ICMP poruke.
 Ovim scenarijom se potvrđuje da TTL modul ispravno obrađuje validne IPv4 pakete i omogućava njihov prolaz kroz sistem.
 
-![Slika1 1: Scenarij 1](Graficki_prikaz/Scenarij1-ispravljen.jpg)
-
-*Slika 1: Scenarij 1 - TTL > 1*
+<p align="center">
+  <img src="Graficki_prikaz/Scenarij1-ispravljen.jpg " width="500">
+</p>
+<p align="center">
+  <em>Slika 2: Scenarij 1 - TTL > 1</em>
+</p>
 
 **Scenarij 2 - TTL = 1**
 U drugm testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijednost jednaka jedan.Nakon prijema Etherent okvira i izdvajanja IPv4 paketa, TTL_MODUL provjerava TTL polje i utvrđuje da bi njegovim umanjenjem došlo do nulte vrijednosti. Takav paket se esmatra nevažećim, te se odbacuje i generiše se ICMP Time Exceeded poruka.ICMP poruka se formira tako da sadrži informacije potrebne za identifikaciju odbačenog paketa, a šelje se nazad prema izvornoj adresi. Ovaj scenarij omogućava pracilnu detekciju isteka TTL vrijednosti i reakcije TTL modula u slučaju greške.
 
-![Slika1 1: Scenarij 1](Graficki_prikaz/Scenarij_2-ispravljen.jpg)
+<p align="center">
+  <img src="Graficki_prikaz/Scenarij_2-ispravljen.jpg " width="500">
+</p>
+<p align="center">
+  <em>Slika 3: Scenarij 2 - TTL = 1</em>
+</p>
 
-*Slika 1: Scenarij 2 - TTL = 0*
 # Literatura
 [1] B. A. Forouzan, "Data Communications and Networking," 5th ed., New York: McGraw-Hill, 2013, ISBN 978-0-07-337622-6.
