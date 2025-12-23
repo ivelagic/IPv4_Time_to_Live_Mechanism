@@ -47,7 +47,7 @@ Time Exceeded poruka koja se šalje nazad pošiljaocu [1].
 **Scenarij 1 - TTL > 1**
 
 U prvom testnom scenariju razmatra se obrada IPv4 paketa čija je vrijednost TTL polja veća od jedan. Pošiljalac (IP_PACKET_SENDER) formira Ethernet okvir u čijem se podatkovnom polju nalazi IPv4 paket, a Type polje označava da se radi o IPv4 protokolu. Nakon prijema paketa od strane primaoca (TTL_MODULE), obrađuje se IPv4 zaglavlje. Provjerava se TTL polje, te nakon što se utvrdi da TTL nije istekao, dekrementira se njegova vrijednost i paket se prosljeđuje dalje bez generisanja ICMP poruke.
-Ovim scenarijom se potvrđuje da TTL modul ispravno obrađuje validne IPv4 pakete i omogućava njihov prolaz kroz sistem.
+Ovim scenarijom se potvrđuje da TTL modul ispravno obrađuje validne IPv4 pakete i omogućava njihov prolaz kroz sistem (Slika 2).
 
 <p align="center">
   <img src="Graficki_prikaz/Scenarij1-ispravljen.jpg " width="500">
@@ -57,7 +57,7 @@ Ovim scenarijom se potvrđuje da TTL modul ispravno obrađuje validne IPv4 paket
 </p>
 
 **Scenarij 2 - TTL = 1**
-U drugm testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijednost jednaka jedan.Nakon prijema Etherent okvira i izdvajanja IPv4 paketa, TTL_MODUL provjerava TTL polje i utvrđuje da bi njegovim umanjenjem došlo do nulte vrijednosti. Takav paket se esmatra nevažećim, te se odbacuje i generiše se ICMP Time Exceeded poruka.ICMP poruka se formira tako da sadrži informacije potrebne za identifikaciju odbačenog paketa, a šelje se nazad prema izvornoj adresi. Ovaj scenarij omogućava pracilnu detekciju isteka TTL vrijednosti i reakcije TTL modula u slučaju greške.
+U drugm testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijednost jednaka jedan.Nakon prijema Etherent okvira i izdvajanja IPv4 paketa, TTL_MODUL provjerava TTL polje i utvrđuje da bi njegovim umanjenjem došlo do nulte vrijednosti. Takav paket se esmatra nevažećim, te se odbacuje i generiše se ICMP Time Exceeded poruka.ICMP poruka se formira tako da sadrži informacije potrebne za identifikaciju odbačenog paketa, a šelje se nazad prema izvornoj adresi. Ovaj scenarij omogućava pracilnu detekciju isteka TTL vrijednosti i reakcije TTL modula u slučaju greške (Slika 3).
 
 <p align="center">
   <img src="Graficki_prikaz/Scenarij_2-ispravljen.jpg " width="500">
