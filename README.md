@@ -66,7 +66,8 @@ U drugm testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijed
   <em>Slika 3: Scenarij 2 - TTL = 1</em>
 </p>
 
-# Opis ulaznih i izlaznig signala modula
+# Opis ulaznih i izlaznih signala modula
+
 | TIP | SIGNAL | IN/OUT | OPIS |
 |-----|--------|--------|------|
 | STD_LOGIC | clock | IN | Glavni takt signala |
