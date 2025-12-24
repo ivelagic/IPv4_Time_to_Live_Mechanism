@@ -66,5 +66,22 @@ U drugm testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijed
   <em>Slika 3: Scenarij 2 - TTL = 1</em>
 </p>
 
+# Opis ulaznih i izlaznig signala modula
+| TIP | SIGNAL | IN/OUT | OPIS |
+|-----|--------|--------|------|
+| STD_LOGIC | clock | IN | Glavni takt signala |
+| STD_LOGIC | reset | IN | Signal za reset sistema |
+| STD_LOGIC_VECTOR(7 DOWNTO 0) | in_data | IN | Ulazni podaci (8-bitni) |
+| STD_LOGIC | in_valid | IN | Indikator validnosti ulaznih podataka |
+| STD_LOGIC | in_sop | IN | Početak paketa (Start Of Packet) |
+| STD_LOGIC | in_eop | IN | Kraj paketa (End Of Packet) |
+| STD_LOGIC | in_ready | IN | Indikator spremnosti za primanje podataka |
+| STD_LOGIC_VECTOR(7 DOWNTO 0) | out_data | OUT | Izlazni podaci (8-bitni) |
+| STD_LOGIC | out_valid | OUT | Indikator validnosti izlaznih podataka |
+| STD_LOGIC | out_sop | OUT | Početak izlaznog paketa |
+| STD_LOGIC | out_eop | OUT | Kraj izlaznog paketa |
+| STD_LOGIC | out_ready | IN | Signal da je primatelj spreman za podatke |
+| STD_LOGIC | drop | OUT | Indikator odbačenog paketa, aktivan do kraja odbačenog paketa|
+
 # Literatura
 [1] B. A. Forouzan, "Data Communications and Networking," 5th ed., New York: McGraw-Hill, 2013, ISBN 978-0-07-337622-6.
