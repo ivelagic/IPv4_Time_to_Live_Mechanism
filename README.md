@@ -76,7 +76,7 @@ U drugm testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijed
 | STD_LOGIC | in_valid | IN | Indikator validnosti ulaznih podataka |
 | STD_LOGIC | in_sop | IN | Početak paketa (Start Of Packet) |
 | STD_LOGIC | in_eop | IN | Kraj paketa (End Of Packet) |
-| STD_LOGIC | in_ready | IN | Indikator spremnosti za primanje podataka |
+| STD_LOGIC | in_ready | OUT | Indikator spremnosti za primanje podataka |
 | STD_LOGIC_VECTOR(7 DOWNTO 0) | out_data | OUT | Izlazni podaci (8-bitni) |
 | STD_LOGIC | out_valid | OUT | Indikator validnosti izlaznih podataka |
 | STD_LOGIC | out_sop | OUT | Početak izlaznog paketa |
