@@ -85,5 +85,31 @@ U drugom testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrije
 | STD_LOGIC | out_ready | IN | Signal da je primatelj spreman za podatke |
 | STD_LOGIC | drop | OUT | Indikator odbačenog paketa, aktivan do kraja odbačenog paketa|
 
+**TTL > 1**
+
+Na slici 4 prikazan je WaveDrom za dolazni paket sa TTL > 1. Ulazni signal je `in_data` gdje je prvi bajt `in_data = 01000101` IPv4 header, a drugi `in_data=01000000` TTL (64). Signal `in_valid` postaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj pakeata signalom `in_eop`, koji se aktivira na zadnjem taktu.
+`out_data` ima istu vrijednost kao `in_data` ,a `out_sop`,`out_eop` i `out_valid` prate ulazne signale.Signal `drop` ostaje neaktivan (`0`) tokom cijelog trajanja paketa jer modul ne odbacuje paket.
+
+<p align="center">
+  <img src="WaveDrom/scenarij1.png " width="500">
+</p>
+<p align="center">
+  <em>Slika 4: WaveDrom prikaz za  TTL>1 </em>
+</p>
+
+**TTL = 1**
+
+Na slici 5 prikazan je WaveDrom za dolazni paket sa TTL =1 1. Ulazni signal je `in_data` gdje je prvi bajt `in_data = 01000101` IPv4 header, a drugi `in_data=00000001` TTL (1). Signal `in_valid` ostaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj pakeata signalom `in_eop`, koji se aktivira na zadnjem taktu. 
+Kako je vrijdnost TTL=1 mogul generiše ICMPv4 Time Exceeded poruku. `out_data` šalje bajtove ICMP poruke: `10001100` označava Type (`11`), `00000000` Code (`0`). `out_sop` i `out_eop` prate ICMP paket. `out_valid` aktivan je sve vrijeme.Signal `drop` postaje aktivan (`1`) tokom trajanja ICMP paketa jer modul odbacuje paket.
+
+<p align="center">
+  <img src="WaveDrom/scenarij2.png " width="500">
+</p>
+<p align="center">
+  <em>Slika 5: WaveDrom prikaz za  TTL=1 </em>
+</p>
+
+
 # Literatura
-[1] B. A. Forouzan, "Data Communications and Networking," 5th ed., New York: McGraw-Hill, 2013, ISBN 978-0-07-337622-6.
+[1] B. A. Forouzan, Data Communications and Networking, 5th ed., New York: McGraw-Hill, 2013, str. 511, 528-529, 562-566
+
