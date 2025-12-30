@@ -87,11 +87,24 @@ U drugom testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrije
 
 **TTL > 1**
 
-Na slici 4 prikazan je WaveDrom za dolazni paket sa TTL > 1. Ulazni signal je `in_data` gdje je prvi bajt `in_data = 01000101` IPv4 header, a drugi `in_data=01000000` TTL (64). Signal `in_valid` postaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj paketa signalom `in_eop`, koji se aktivira na zadnjem taktu.
-`out_data` ima istu vrijednost kao `in_data`, a `out_sop`,`out_eop` i `out_valid` prate ulazne signale. Signal `drop` ostaje neaktivan (`0`) tokom cijelog trajanja paketa jer modul ne odbacuje paket.
+Na slici 4 prikazan je WaveDrom za dolazni paket sa TTL > 1. Signal `in_valid` postaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj paketa signalom `in_eop`, koji se aktivira na zadnjem taktu.
+`out_data` ima istu vrijednost kao `in_data`, a `out_sop`,`out_eop` i `out_valid` prate ulazne signale. Signal `drop` ostaje neaktivan (`0`) tokom cijelog trajanja paketa jer modul ne odbacuje paket. Ulazni signali (`in_data`) objašnjeni su u nastavku:
+
+*Ethernet zaglavlje*
+Destiantion Address: 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF  
+Source Address: 0x00 0x11 0x22 0x33 0x44 0x55  
+Type: 0x08 0x00 (IPv4)  
+
+*IPv4 zaglavlje*
+Version + IHL: 0x45  
+Total Length: 0x00 0x3C 
+TTL: 0x40
+Protocol: 0x11 (UDP)  
+Source Address: 0xC0 0xA8 0x01 0x01  
+Destination Address: 0x08 0x08 0x08 0x08  
 
 <p align="center">
-  <img src="WaveDrom/scenarij1.png " width="500">
+  <img src="WaveDrom/WaveDrom_1.png " width="500">
 </p>
 <p align="center">
   <em>Slika 4: WaveDrom prikaz za  TTL>1 </em>
@@ -99,11 +112,43 @@ Na slici 4 prikazan je WaveDrom za dolazni paket sa TTL > 1. Ulazni signal je `i
 
 **TTL = 1**
 
-Na slici 5 prikazan je WaveDrom za dolazni paket sa TTL =1 1. Ulazni signal je `in_data` gdje je prvi bajt `in_data = 01000101` IPv4 header, a drugi `in_data=00000001` TTL (1). Signal `in_valid` ostaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj pakeata signalom `in_eop`, koji se aktivira na zadnjem taktu. 
-Kako je vrijdnost TTL=1 mogul generiše ICMPv4 Time Exceeded poruku. `out_data` šalje bajtove ICMP poruke: `10001100` označava Type (`11`), `00000000` Code (`0`). `out_sop` i `out_eop` prate ICMP paket. `out_valid` aktivan je sve vrijeme. Signal `drop` postaje aktivan (`1`) tokom trajanja ICMP paketa jer modul odbacuje paket.
+Na slici 5 prikazan je WaveDrom za dolazni paket sa TTL=1. Signal `in_valid` ostaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj paketa signalom `in_eop`, koji se aktivira na zadnjem taktu. 
+Kako je vrijdnost TTL=1 mogul generiše ICMPv4. Signal `drop` postaje aktivan (`1`) tokom trajanja ICMP paketa jer modul odbacuje paket.
+## Ulazni paket (`in_data`)
+**Ethernet zaglavlje**  
+Destination Address: 0xFF 0xFF 0xFF 0xFF 0xFF 0xFF  
+Source Address: 0x00 0x11 0x22 0x33 0x44 0x55  
+Type: 0x08 0x00 (IPv4)  
+
+**IPv4 zaglavlje**  
+Version + IHL: 0x45  
+Total Length: 0x00 0x3C  
+TTL: 0x01
+Protocol: 0x11 (UDP)  
+Source Address: 0xC0 0xA8 0x01 0x01  
+Destination Address: 0x08 0x08 0x08 0x08  
+
+*Izlazni ICMP paket (`out_data`)*
+**Ethernet zaglavlje**  
+Destination Address: 0x00 0x11 0x22 0x33 0x44 0x55 (originalni pošiljalac)  
+Source Address: 0xAA 0xBB 0xCC 0xDD 0xEE 0xFF (modul)  
+Type: 0x08 0x00 (IPv4)  
+
+**IPv4 zaglavlje**  
+Version + IHL: 0x45  
+Total Length: 0x00 0x3C  
+TTL: 0x40
+Protocol: 0x01 (ICMP)  
+Source Address: 0x08 0x08 0x08 0x08 (modul)  
+Destination Address: 0xC0 0xA8 0x01 0x01 (originalni pošiljalac)  
+
+**ICMP zaglavlje**  
+Type: 0x0B (Time Exceeded) 
+Code: 0x00  
+Data: 0x45 0x00 0x3C 0x11 0xC0 0xA8 0x01 0x01  
 
 <p align="center">
-  <img src="WaveDrom/scenarij2.png " width="500">
+  <img src="WaveDrom/WaveDrom_2.png " width="500">
 </p>
 <p align="center">
   <em>Slika 5: WaveDrom prikaz za  TTL=1 </em>
