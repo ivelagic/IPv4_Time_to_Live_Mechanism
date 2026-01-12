@@ -165,13 +165,13 @@ Data: 0x45 0x00 0x3C 0x11 0xC0 0xA8 0x01 0x01
 </p>
 
 # FSM dijagram
-<!-- **Idle** stanje govori da je modul `ip_ttl` spreman za prijem novog paketa (`in_valid=1`), a javlja se nakon aktivacije signala `reset`. Nakon detekecije početka paketa (`in_valid=1 & in_sop=1`) FSM prelazi u stanje provjere vrijednosti TTL-a. Ukoliko je TTL>1 FSM prelazi u stanje **Packet Passed**, signal `drop` ostaje nekativan, a izlazni signali prate izlazne. FSM ostaje u ovom stanju sve do kraja paketa (`in_eop`=1), nakon čega se vraća u stanje Idle. Za slučaj kada je TTL=1 FSM prelazi u stanje **Packet Dropped Send ICMP**, gdje se aktivira signal `drop` i paralelno aktivira ICMPv4Exceeded poruka. Nakon kraja paketa `in_eop=1` vraća se u početno stanje. Na slici 6 prikazan je FSM dijagram.
+ **IDLE** stanje govori da je modul `ip_ttl` spreman za prijem novog paketa (`in_valid && in_sop`) i javlja se nakon aktivacije signala `reset`. Nakon detekecije početka paketa (`in_valid==1 && in_sop==1`), FSM prelazi u stanje **ETHERNET_HEADER** gdje se čita destinacijska adresa i Type. Slijedi stanje **IP_HEADER**, gdje se čita IP header, a ako su podaci validni prelazi u stanje **TTL_CHECK**. Ukoliko je TTL>1, FSM prelazi u stanje **PACKET PASSED**, gdje se paket prihvata i prosljeđuje, a kraj paketa se označava signalom `in_eop`. U suprotnom, paket se odbacuje u stanje **PACKET_DROPPED**, pri čemu se čeka kraj paketa detektovan signalom `in_eop`. Nakon odbacivanja paketa aktivira se stanje **SEND_ICMP** u kojem se šalje ICMP poruka. Poruka je spremna za slanje aktiviranjem signala `out_ready`.
 <p align="center">
-  <img src="FSM/FSM.jpg " width="500">
+  <img src="FSM/FSM_n.jpg " width="500">
 </p>
 <p align="center">
   <em>Slika 6: FSM dijagram </em>
-</p> -->
+</p> 
 
 # Literatura
 [1] B. A. Forouzan, Data Communications and Networking, 5th ed., New York: McGraw-Hill, 2013, str. 511, 528-529, 562-566
