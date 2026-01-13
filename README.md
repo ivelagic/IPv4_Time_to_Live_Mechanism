@@ -90,7 +90,7 @@ Za prikaz WaveDrom scenarija koriste se samo oni dijelovi paketa koji su definis
 **TTL > 1**
 
 Na slici 4 prikazan je WaveDrom za dolazni paket sa TTL > 1. Signal `in_valid` postaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj paketa signalom `in_eop`, koji se aktivira na zadnjem taktu.
-`out_data` ima istu vrijednost kao `in_data`, a `out_sop`,`out_eop` i `out_valid` prate ulazne signale. Signal `drop` ostaje neaktivan (`0`) tokom cijelog trajanja paketa jer modul ne odbacuje paket. Ulazni signali (`in_data`) objašnjeni su u nastavku:
+`out_data`,`out_sop`,`out_eop` i `out_valid` imaju vrijednost nula jer je vrijednost TTL polja veća od jedan te nema generisanja ICMP poruke. Signal `drop` ostaje neaktivan (`0`) tokom cijelog trajanja paketa jer modul ne odbacuje paket. Ulazni signali (`in_data`) objašnjeni su u nastavku:
 
 *Ethernet zaglavlje*
 
@@ -108,7 +108,7 @@ Source Address: 0xC0 0xA8 0x01 0x01
 Destination Address: 0x08 0x08 0x08 0x08  
 
 <p align="center">
-  <img src="WaveDrom/WaveDrom_1.png " width="600">
+  <img src="WaveDrom/scenarij1.png " width="600">
 </p>
 <p align="center">
   <em>Slika 4: WaveDrom prikaz za  TTL>1 </em>
@@ -117,7 +117,7 @@ Destination Address: 0x08 0x08 0x08 0x08
 **TTL = 1**
 
 Na slici 5 prikazan je WaveDrom za dolazni paket sa TTL=1. Signal `in_valid` ostaje aktivan(`1`) dok se podaci prenose. Početak paketa označen je sa signalom `in_sop`, a kraj paketa signalom `in_eop`, koji se aktivira na zadnjem taktu. 
-Kako je vrijednost TTL=1 mogul generiše ICMPv4. Signal `drop` postaje aktivan (`1`) tokom trajanja paketa jer modul odbacuje paket. Ulazni signali (`in_data`) objašnjeni su u nastavku:
+Kako je vrijednost TTL=1, modul generiše ICMPv4 nakon što se proslijedi čitav paket. Signal `drop` postaje aktivan (`1`) nakon provjere TTL polja i ostaje aktivan do kraja trajanja paketa. Ulazni signali (`in_data`) objašnjeni su u nastavku:
 
 *Ethernet zaglavlje*  
 
@@ -158,7 +158,7 @@ Code: 0x00  <br>
 Data: 0x45 0x00 0x3C 0x11 0xC0 0xA8 0x01 0x01  
 
 <p align="center">
-  <img src="WaveDrom/WaveDrom_2.png " width="600">
+  <img src="WaveDrom/scenarij2.png " width="800">
 </p>
 <p align="center">
   <em>Slika 5: WaveDrom prikaz za  TTL=1 </em>
