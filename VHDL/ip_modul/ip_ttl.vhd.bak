@@ -1,0 +1,125 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+use IEEE.NUMERIC_STD.ALL;
+
+entity ip_ttl is
+    port (
+        clock      : in  std_logic;
+        reset      : in  std_logic;
+        in_data    : in  std_logic_vector(7 downto 0);
+        in_valid   : in  std_logic;
+        in_sop     : in  std_logic;
+        in_eop     : in  std_logic;
+        in_ready   : out std_logic; 
+        out_data   : out std_logic_vector(7 downto 0);
+        out_valid  : out std_logic;
+        out_sop    : out std_logic;
+        out_eop    : out std_logic;
+        out_ready  : in  std_logic;
+        drop       : out std_logic
+    );
+end ip_ttl;
+
+architecture arch of ip_ttl is
+    -- Stanja direktno sa tvoje slike
+    type state_type is (IDLE, ETHERNET_HEADER, IP_HEADER, TTL_CHECK, PACKET_PASSED, PACKET_DROPPED, SEND_ICMP);
+    signal state : state_type;
+    signal counter : integer range 0 to 63;
+
+begin
+
+    -- ready signal kao u tvom primjeru (blokira ulaz samo kad se generiše odgovor)
+    in_ready <= '0' when state = SEND_ICMP else '1';
+
+    process(clock, reset)
+    begin
+        if reset = '1' then
+            state <= IDLE;
+            counter <= 0;
+            drop <= '0';
+            out_valid <= '0';
+        elsif rising_edge(clock) then
+            -- Resetujemo izlazne impulse (defaultni state)
+            out_valid <= '0';
+            out_sop   <= '0';
+            out_eop   <= '0';
+
+            case state is
+                when IDLE =>
+                    drop <= '0';
+                    counter <= 0;
+                    if in_valid = '1' and in_sop = '1' then
+                        state <= ETHERNET_HEADER;
+                    end if;
+
+                when ETHERNET_HEADER =>
+                    if in_valid = '1' then
+                        if counter = 13 then -- Prošlo 14 bajtova Etherneta
+                            state <= IP_HEADER;
+                            counter <= 0;
+                        else
+                            counter <= counter + 1;
+                        end if;
+                    end if;
+
+                when IP_HEADER =>
+                    if in_valid = '1' then
+                        if counter = 7 then -- Došli smo do 9. bajta IP zaglavlja (TTL)
+                            state <= TTL_CHECK;
+                            counter <= 0;
+                        else
+                            counter <= counter + 1;
+                        end if;
+                    end if;
+
+                when TTL_CHECK =>
+                    if in_valid = '1' then
+                        if unsigned(in_data) > 1 then
+                            state <= PACKET_PASSED;
+                        else
+                            state <= PACKET_DROPPED;
+                            drop <= '1';
+                        end if;
+                    end if;
+
+                when PACKET_PASSED =>
+                    -- Ovdje modul radi kao "žica": samo prosljeđuje
+                    out_data <= in_data;
+                    out_valid <= in_valid;
+                    if in_valid = '1' and in_eop = '1' then
+                        out_eop <= '1';
+                        state <= IDLE;
+                    end if;
+
+                when PACKET_DROPPED =>
+                    -- Čekamo kraj lošeg paketa (EOP) da bi pokrenuli odgovor
+                    if in_valid = '1' and in_eop = '1' then
+                        state <= SEND_ICMP;
+                        counter <= 0;
+                    end if;
+
+                when SEND_ICMP =>
+                    -- Generisanje ICMP odgovora bajt po bajt (bez snimljenih adresa)
+                    -- Ovdje bi se u realnom sistemu radilo "nešto", 
+                    -- ali za tvoj zadatak samo šaljemo podatke dok counter broji.
+                    if out_ready = '1' then
+                        out_valid <= '1';
+                        if counter = 0 then out_sop <= '1'; end if;
+                        
+                        -- Primjer generisanja podataka bez konstanti - direktno na port
+                        out_data <= std_logic_vector(to_unsigned(counter, 8)); 
+                        
+                        if counter = 36 then -- Dužina tvog ICMP odgovora
+                            out_eop <= '1';
+                            state <= IDLE;
+                        else
+                            counter <= counter + 1;
+                        end if;
+                    end if;
+
+                when others => state <= IDLE;
+            end case;
+        end if;
+    end process;
+
+end arch;
