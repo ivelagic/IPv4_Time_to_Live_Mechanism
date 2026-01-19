@@ -175,7 +175,18 @@ Data: 0x45 0x00 0x3C 0x01 0x11 0xC0 0xA8 0x01 0x01 0x08 0x08 0x08 0x08
 
 # Time To Live Mechanism - VHDL modul
 ## Opis *ip_ttl* modula
-Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje ICMP Time Exceeded poruke kada TTL dosegne vrijednost 1. Logika je realizovana sekvencijalno kroz FSM sa jasno definisanim stanjima: IDLE, ETHERNET_HEADER, IP_HEADER, PACKET_PASSED, PACKET_DROPPED i SEND_ICMP.
+Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje ICMP Time Exceeded poruke kada TTL dosegne vrijednost 1. Logika je realizovana sekvencijalno kroz FSM sa jasno definisanim stanjima: IDLE, ETHERNET_HEADER, IP_HEADER, PACKET_PASSED, PACKET_DROPPED i SEND_ICMP.VHDL modul je uspješno sintetiziran u Quartus Prime Lite razvojnom okruženju (Slika 7).
+
+<p align="center">
+  <img src="VHDL/report.png " width="500">
+</p>
+<p align="center">
+  <em> Slika 7: Compilation report </em>
+</p>
+
+## FSM dijagram - VHDL
+
+
 # Literatura
 [1] B. A. Forouzan, Data Communications and Networking, 5th ed., New York: McGraw-Hill, 2013, str. 511, 528-529, 562-566
 
