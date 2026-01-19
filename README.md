@@ -1,7 +1,7 @@
 # IPv4_Time_to_Live_Mechanism
 
 # Uvod
-Mrežni sloj Interneta omogućava usluge transportnom sloju, dok istovremeno koristi usluge sloja veze podataka (engl. link layer). Mrežni sloj pruža usluge paketizacije i usmjeravanja paketa od izvora do odredišta. Glavno pitanje na mrežnom sloju je adresiranje. Za identifikaciju veze svakog uređaja s Internetom naziva se internet adresa ili IP adresa. IPv4 adresa sastoji se od 32 bita. IPv4 adrese su jedinstvene, odnosno svaka adresa definiše jednu i samo jednu vezu s Internetom. Ako uređaj ima dvije veze prema Internetu, preko dvije različite mreže, tada ima i dvije IPv4 adrese [1].
+Mrežni sloj Interneta omogućava usluge transportnom sloju, dok istovremeno koristi usluge sloja veze podataka (*engl. link layer*). Mrežni sloj pruža usluge paketizacije i usmjeravanja paketa od izvora do odredišta. Glavno pitanje na mrežnom sloju je adresiranje. Za identifikaciju veze svakog uređaja s Internetom naziva se internet adresa ili IP adresa. IPv4 adresa sastoji se od 32 bita. IPv4 adrese su jedinstvene, odnosno svaka adresa definiše jednu i samo jednu vezu s Internetom. Ako uređaj ima dvije veze prema Internetu, preko dvije različite mreže, tada ima i dvije IPv4 adrese [1].
 Ovaj projekat implementira IPv4 Time To Live (TTL) mehanizam u obliku hardverskog modula. Modul prima IPv4 pakete putem Avalon-ST interfejsa, dekrementira TTL polje i odlučuje da li se paket prosljeđuje ili odbacuje.
 
 # IPv4 zaglavlje
@@ -194,13 +194,14 @@ Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa
   <em> Slika 8: State Machine Viewer </em>
 </p
 
-# ModelSim
+## ModelSim
 
 Za testiranje datog modula kreiranu su dva testbench-a. <br>
 
 **1. Testbench za TTL > 1** <br>
 Simulira dolazni IPv4 paket sa vrijednosti TTL većom od 1.
 Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
+
 
 **2. Testbench za TTL = 1** <br>
 Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
@@ -210,7 +211,7 @@ Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exc
   <img src="VHDL/testbench.png " width="500">
 </p>
 <p align="center">
-  <em> Slika 9: Potvrda uspješne simulacije u ModelSim-u </em>
+  <em> Slika 11: Potvrda uspješne simulacije u ModelSim-u </em>
 </p
 
 
