@@ -61,7 +61,7 @@ Ovim scenarijom se potvrđuje da TTL modul ispravno obrađuje validne IPv4 paket
 U drugom testnom scenariju razmatra se obrada IPv4 paketa kod kojeg je TTL vrijednost jednaka jedan.Nakon prijema Etherent okvira i izdvajanja IPv4 paketa, TTL_MODUL provjerava TTL polje i utvrđuje da bi njegovim umanjenjem došlo do nulte vrijednosti. Takav paket se esmatra nevažećim, te se odbacuje i generiše se ICMP Time Exceeded poruka. ICMP poruka se formira tako da sadrži informacije potrebne za identifikaciju odbačenog paketa, a šalje se nazad prema izvornoj adresi. Ovaj scenarij omogućava pravilnu detekciju isteka TTL vrijednosti i reakcije TTL modula u slučaju greške (Slika 3).
 
 <p align="center">
-  <img src="Graficki_prikaz/Scenarij_2-ispravljen.jpg " width="500">
+  <img src="Graficki_prikaz/scenarij2.jpg " width="500">
 </p>
 <p align="center">
   <em>Slika 3: Scenarij 2 - TTL = 1</em>
