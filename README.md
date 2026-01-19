@@ -175,7 +175,7 @@ Data: 0x45 0x00 0x3C 0x01 0x11 0xC0 0xA8 0x01 0x01 0x08 0x08 0x08 0x08
 
 # Time To Live Mechanism - VHDL modul
 ## Opis *ip_ttl* modula
-Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje ICMP Time Exceeded poruke kada TTL dosegne vrijednost 1. Logika je realizovana sekvencijalno kroz FSM sa jasno definisanim stanjima: IDLE, ETHERNET_HEADER, IP_HEADER, PACKET_PASSED, PACKET_DROPPED i SEND_ICMP.VHDL modul je uspješno sintetiziran u Quartus Prime Lite razvojnom okruženju (Slika 7).
+Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje ICMP Time Exceeded poruke kada TTL dosegne vrijednost 1. Logika je realizovana sekvencijalno kroz FSM sa jasno definisanim stanjima: IDLE, ETHERNET_HEADER, IP_HEADER, PACKET_PASSED, PACKET_DROPPED i SEND_ICMP. VHDL modul je uspješno sintetiziran u Quartus Prime Lite razvojnom okruženju (Slika 7).
 
 <p align="center">
   <img src="VHDL/report.png " width="500">
@@ -185,6 +185,31 @@ Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje
 </p>
 
 ## FSM dijagram - VHDL
+Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa FSM dijagramom prikazanom na slici 5.
+
+<p align="center">
+  <img src="VHDL/smv.png " width="500">
+</p>
+<p align="center">
+  <em> Slika 8: State Machine Viewer </em>
+</p
+
+## ModelSim
+Za testiranje datog modula kreiranu su dva testbench-a. 
+**1.Testbench za TTL > 1**
+Simulira dolazni IPv4 paket sa TTL vrijednošću većom od 1.
+Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
+
+**Testbench za TTL = 1**
+Simulira dolazni IPv4 paket sa TTL vrijednošću tačno 1.
+Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP.
+
+<p align="center">
+  <img src="VHDL/testbench.png " width="500">
+</p>
+<p align="center">
+  <em> Slika 9: </em>
+</p
 
 
 # Literatura
