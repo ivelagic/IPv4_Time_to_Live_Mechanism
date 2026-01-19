@@ -188,7 +188,7 @@ Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje
 Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa FSM dijagramom prikazanom na slici 5.
 
 <p align="center">
-  <img src="VHDL/smv.png " width="500">
+  <img src="VHDL/statemachineviewer.png " width="500">
 </p>
 <p align="center">
   <em> Slika 8: State Machine Viewer </em>
