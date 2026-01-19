@@ -194,13 +194,15 @@ Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa
   <em> Slika 8: State Machine Viewer </em>
 </p
 
-## ModelSim
-Za testiranje datog modula kreiranu su dva testbench-a. 
-**1.Testbench za TTL > 1**
-Simulira dolazni IPv4 paket sa TTL vrijednošću većom od 1.
+# ModelSim
+
+Za testiranje datog modula kreiranu su dva testbench-a. <br>
+
+**1. Testbench za TTL > 1** <br>
+Simulira dolazni IPv4 paket sa vrijednosti TTL većom od 1.
 Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
 
-**Testbench za TTL = 1**
+**2. Testbench za TTL = 1** <br>
 Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
 Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP.
 
@@ -208,7 +210,7 @@ Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exc
   <img src="VHDL/testbench.png " width="500">
 </p>
 <p align="center">
-  <em> Slika 9: </em>
+  <em> Slika 9: Potvrda uspješne simulacije u ModelSim-u </em>
 </p
 
 
