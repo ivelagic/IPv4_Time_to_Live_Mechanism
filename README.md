@@ -165,9 +165,9 @@ Data: 0x45 0x00 0x3C 0x01 0x11 0xC0 0xA8 0x01 0x01 0x08 0x08 0x08 0x08
 </p>
 
 # FSM dijagram
- **IDLE** stanje govori da je modul `ip_ttl` spreman za prijem novog paketa (`in_valid && in_sop`) i javlja se nakon aktivacije signala `reset`. Nakon detekecije početka paketa (`in_valid==1 && in_sop==1`), FSM prelazi u stanje **ETHERNET_HEADER** gdje se čita destinacijska adresa i Type. Slijedi stanje **IP_HEADER**, gdje se čita IP header, a ako su podaci validni prelazi u stanje **TTL_CHECK**. Ukoliko je TTL>1, FSM prelazi u stanje **PACKET PASSED**, gdje se paket prihvata i prosljeđuje, a kraj paketa se označava signalom `in_eop`. U suprotnom, paket se odbacuje u stanje **PACKET_DROPPED**, pri čemu se čeka kraj paketa detektovan signalom `in_eop`. Nakon odbacivanja paketa aktivira se stanje **SEND_ICMP** u kojem se šalje ICMP poruka. Poruka je spremna za slanje aktiviranjem signala `out_ready`.
+ **IDLE** stanje govori da je modul `ip_ttl` spreman za prijem novog paketa (`in_valid && in_sop`) i javlja se nakon aktivacije signala `reset`. Nakon detekecije početka paketa (`in_valid==1 && in_sop==1`), FSM prelazi u stanje **ETHERNET_HEADER** gdje se čita destinacijska adresa i Type. Slijedi stanje **IP_HEADER**, gdje se vrši obrada bajtova sve dok brojač ne dostigne vrijednost 18, što je pozicija TTL polja. Na tom mjestu se vrši provjera upotrebom *unsigned(in_data)*: ako je vrijednost veća od jedan, paket se smatra validnim i automat prelazi u stanje **PACKET_PASSED**, dok se u slučaju vrijednosti jedan FSM prelazi u stanje **PACKET_DROPPED**. U oba slučaja sistem prati dolazni tok podataka sve do detekcije signala `in_eop` koji označava kraj paketa. U završnom stanju **SEND_ICMP**, modul generiše ICMP Time Exceeded poruku. Slanje se vrši sinhronizovano sa signalom `out_ready`. Nakon što je cijela ICMP poruka poslana, FSM se vraća u stanje IDLE.
 <p align="center">
-  <img src="FSM/FSM_n.jpg " width="500">
+  <img src="FSM/FSM.jpg " width="500">
 </p>
 <p align="center">
   <em>Slika 6: FSM dijagram </em>
