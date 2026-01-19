@@ -201,7 +201,7 @@ Simulira dolazni IPv4 paket sa TTL vrijednošću većom od 1.
 Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
 
 **Testbench za TTL = 1**
-Simulira dolazni IPv4 paket sa TTL vrijednošću tačno 1.
+Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
 Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP.
 
 <p align="center">
