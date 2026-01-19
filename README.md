@@ -192,28 +192,41 @@ Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa
 </p>
 <p align="center">
   <em> Slika 8: State Machine Viewer </em>
-</p
+</p>
 
 ## ModelSim
 
 Za testiranje datog modula kreiranu su dva testbench-a. <br>
 
 **1. Testbench za TTL > 1** <br>
+
 Simulira dolazni IPv4 paket sa vrijednosti TTL većom od 1.
 Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
 
+<p align="center">
+  <img src="VHDL/tb1.png " width="500">
+</p>
+<p align="center">
+  <em> Slika 9: Prikaz testbench-a za prvi scenarij </em>
+</p>
+
+Dobijeni waveform, prikazan na slici 9, u skladu je sa WaveDrom dijagramom prethodno prikazanim. 
 
 **2. Testbench za TTL = 1** <br>
+
 Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
 Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP.
 
 <p align="center">
-  <img src="VHDL/testbench.png " width="500">
+  <img src="VHDL/testbench2.png " width="500">
 </p>
 <p align="center">
-  <em> Slika 11: Potvrda uspješne simulacije u ModelSim-u </em>
-</p
+  <em> Slika 10: Prikaz testbench-a za drugi scenarij </em>
+</p>
 
+Dobijeni waveform, prikazan na slici 10, u skladu je sa WaveDrom dijagramom prethodno prikazanim.  
+
+# Zaključak
 
 # Literatura
 [1] B. A. Forouzan, Data Communications and Networking, 5th ed., New York: McGraw-Hill, 2013, str. 511, 528-529, 562-566
