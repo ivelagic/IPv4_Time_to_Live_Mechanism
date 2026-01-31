@@ -167,7 +167,7 @@ Data: 0x45 0x00 0x3C 0x01 0x11 0xC0 0xA8 0x01 0x01 0x08 0x08 0x08 0x08
 # FSM dijagram
  **IDLE** stanje govori da je modul `ip_ttl` spreman za prijem novog paketa (`in_valid && in_sop`) i javlja se nakon aktivacije signala `reset`. Nakon detekecije početka paketa (`in_valid==1 && in_sop==1`), FSM prelazi u stanje **ETHERNET_HEADER** gdje se čita destinacijska adresa i Type. Slijedi stanje **IP_HEADER**, gdje se vrši obrada bajtova sve dok brojač ne dostigne vrijednost 18. Kada dostigne vrijednost 18, koja predstavlja polj polsije TTL-a, provjerava se njegova vrijednost: ako je vrijednost veća od jedan, paket se smatra validnim i automat prelazi u stanje **PACKET_PASSED**, dok se u slučaju vrijednosti jedan FSM prelazi u stanje **PACKET_DROPPED**. U oba slučaja sistem prati dolazni tok podataka sve do detekcije signala `in_eop` koji označava kraj paketa. U završnom stanju **SEND_ICMP**, modul generiše ICMP Time Exceeded poruku. Slanje se vrši sinhronizovano sa signalom `out_ready`. Nakon što je cijela ICMP poruka poslana, FSM se vraća u stanje IDLE.
 <p align="center">
-  <img src="FSM/FSM.jpg " width="500">
+  <img src="FSM/fsm.drawio.png " width="500">
 </p>
 <p align="center">
   <em>Slika 6: FSM dijagram </em>
