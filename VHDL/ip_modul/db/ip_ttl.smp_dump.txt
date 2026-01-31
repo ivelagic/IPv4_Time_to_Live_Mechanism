@@ -1,9 +1,0 @@
-
-State Machine - |ip_ttl|state
-Name state.SEND_ICMP state.PACKET_DROPPED state.PACKET_PASSED state.IP_HEADER state.ETHERNET_HEADER state.IDLE 
-state.IDLE 0 0 0 0 0 0 
-state.ETHERNET_HEADER 0 0 0 0 1 1 
-state.IP_HEADER 0 0 0 1 0 1 
-state.PACKET_PASSED 0 0 1 0 0 1 
-state.PACKET_DROPPED 0 1 0 0 0 1 
-state.SEND_ICMP 1 0 0 0 0 1 
