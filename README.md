@@ -223,7 +223,7 @@ Provjerava da modul aktivira `drop` signal tokom prijema paketa i da ICMP Time E
 </p>
 
 
-**3. Testbench za backpressur scenarij** <br>
+**3. Testbench za backpressure scenarij** <br>
 
 Simulira dolazni IPv4 paket kod kojeg je vrijednost TTL jednaka 1, pri čemu je izlazni signal `out_ready` privremeno deaktiviran. Time se uvodi backpressure na izlaznom interfejsu. Testbench provjerava da modul ispravno aktivira `drop` signal tokom prijema paketa, te da se generisanje ICMP Time Exceeded poruke u stanju SEND_ICMP odgađa sve dok `out_ready` ponovo ne postane aktivan.
 
@@ -234,7 +234,12 @@ Simulira dolazni IPv4 paket kod kojeg je vrijednost TTL jednaka 1, pri čemu je 
   <em> Slika 10: Prikaz testbench-a za backpressure scenarij </em>
 </p>
 
+
 # Zaključak
+U okviru ovog projekta realizovan je modul za obradu IPv4 Time To Live (TTL) mehanizma, implementiran u VHDL-u uz korištenje Avalon-ST interfejsa sa ready/valid rukovanjem.Modul omogućava obradu paketa bajt-po-bajt i donosi odluku o tome da li se paket prihvata ili odbacuje na osnovu vrijednosti TTL polja, uz generisanje ICMPv4 Time Exceeded poruke u slučaju isteka TTL-a.
+
+Implementacija FSM-a zasnovana je na strukturi Ethernet okvira i IPv4 zaglavlja, pri čemu nije korišten kompletan sadržaj Ethernet i IPv4 zaglavlja, već isključivo ona polja koja su definisana u scenarijima testiranja i neophodna za provjeru TTL mehanizma. Ovakav pristup omogućio je fokusiranje na funkcionalnost TTL mehanizma, uz pojednostavljenje dizajna i lakšu verifikaciju.
+Simulacijama u ModelSim okruženju potvrđena je ispravnost rada modula u oba predviđena scenarija (TTL > 1 i TTL = 1), kao i u uslovima pojave izlaznog backpressure-a. Waveform dijagrami jasno prikazuju tok prijema paketa, aktivaciju signala drop tokom odbacivanja paketa i generisanje ICMP Time Exceeded poruke.
 
 # Literatura
 [1] B. A. Forouzan, Data Communications and Networking, 5th ed., New York: McGraw-Hill, 2013, str. 511, 528-529, 562-566
