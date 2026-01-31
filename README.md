@@ -178,7 +178,7 @@ Data: 0x45 0x00 0x3C 0x01 0x11 0xC0 0xA8 0x01 0x01 0x08 0x08 0x08 0x08
 Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje ICMP Time Exceeded poruke kada TTL dosegne vrijednost 1. Logika je realizovana sekvencijalno kroz FSM sa jasno definisanim stanjima: IDLE, ETHERNET_HEADER, IP_HEADER, PACKET_PASSED, PACKET_DROPPED i SEND_ICMP. VHDL modul je uspješno sintetiziran u Quartus Prime Lite razvojnom okruženju (Slika 7).
 
 <p align="center">
-  <img src="VHDL/report.png " width="500">
+  <img src="VHDL/report1.png " width="500">
 </p>
 <p align="center">
   <em> Slika 7: Compilation report </em>
@@ -188,7 +188,7 @@ Modul `ip_ttl` implementira osnovnu provjeru TTL polja IPv4 paketa i generisanje
 Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa FSM dijagramom prikazanom na slici 5.
 
 <p align="center">
-  <img src="VHDL/statemachineviewer.png " width="500">
+  <img src="VHDL/state_machine_viewer1.png " width="500">
 </p>
 <p align="center">
   <em> Slika 8: State Machine Viewer </em>
@@ -204,7 +204,7 @@ Simulira dolazni IPv4 paket sa vrijednosti TTL većom od 1.
 Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
 
 <p align="center">
-  <img src="VHDL/tb1.png " width="500">
+  <img src="VHDL/wave1.png " width="500">
 </p>
 <p align="center">
   <em> Slika 9: Prikaz testbench-a za prvi scenarij </em>
@@ -218,7 +218,7 @@ Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
 Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP.
 
 <p align="center">
-  <img src="VHDL/testbench2.png " width="500">
+  <img src="VHDL/wave2.png " width="500">
 </p>
 <p align="center">
   <em> Slika 10: Prikaz testbench-a za drugi scenarij </em>
