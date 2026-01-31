@@ -1,0 +1,133 @@
+m255
+K4
+z2
+13
+!s112 1.1
+!i10d 8192
+!i10e 25
+!i10f 100
+cModel Technology
+Z0 dC:/Users/Ilma/Desktop/APC projekti/ip_modul/simulation/modelsim
+Eip_ttl
+Z1 w1769893593
+Z2 DPx4 ieee 11 numeric_std 0 22 :ASDNFgHXf_ih3J@9F3Ze1
+Z3 DPx3 std 6 textio 0 22 zE1`LPoLg^DX3Oz^4Fj1K3
+Z4 DPx4 ieee 14 std_logic_1164 0 22 eNV`TJ_GofJTzYa?f<@Oe1
+R0
+Z5 8C:/Users/Ilma/Desktop/APC projekti/ip_modul/ip_ttl.vhd
+Z6 FC:/Users/Ilma/Desktop/APC projekti/ip_modul/ip_ttl.vhd
+l0
+L5
+VP_6:7GBlAHbH=9J1jK1W53
+!s100 0A?fZgDHEQTXQ^3f9SBSC2
+Z7 OV;C;10.5b;63
+32
+Z8 !s110 1769893746
+!i10b 1
+Z9 !s108 1769893746.000000
+Z10 !s90 -reportprogress|300|-work|work|C:/Users/Ilma/Desktop/APC projekti/ip_modul/ip_ttl.vhd|
+Z11 !s107 C:/Users/Ilma/Desktop/APC projekti/ip_modul/ip_ttl.vhd|
+!i113 1
+Z12 o-work work
+Z13 tExplicit 1 CvgOpt 0
+Abhv
+R2
+R3
+R4
+DEx4 work 6 ip_ttl 0 22 P_6:7GBlAHbH=9J1jK1W53
+l42
+L22
+VGk7aRR3Y62ICi@>GCESgB3
+!s100 GEim^?PX0KQFT_5FG5lKa2
+R7
+32
+R8
+!i10b 1
+R9
+R10
+R11
+!i113 1
+R12
+R13
+Etb1_ip_ttl
+Z14 w1769894038
+R2
+R3
+R4
+R0
+Z15 8C:/Users/Ilma/Desktop/APC projekti/ip_modul/tb1_ip_ttl.vhd
+Z16 FC:/Users/Ilma/Desktop/APC projekti/ip_modul/tb1_ip_ttl.vhd
+l0
+L5
+Ve^eP7U0^2k;<loofO5WmV2
+!s100 OkgVKLB^ZfEB0D=9I[J[21
+R7
+32
+Z17 !s110 1769894204
+!i10b 1
+Z18 !s108 1769894204.000000
+Z19 !s90 -reportprogress|300|-work|work|C:/Users/Ilma/Desktop/APC projekti/ip_modul/tb1_ip_ttl.vhd|
+Z20 !s107 C:/Users/Ilma/Desktop/APC projekti/ip_modul/tb1_ip_ttl.vhd|
+!i113 1
+R12
+R13
+Abehavior
+R2
+R3
+R4
+Z21 DEx4 work 10 tb1_ip_ttl 0 22 e^eP7U0^2k;<loofO5WmV2
+l35
+L8
+Z22 VRoG;GJ:OQ7Z6j412KFIUl0
+Z23 !s100 4>^ol:_]D0X6zd;JHJ@2@0
+R7
+32
+R17
+!i10b 1
+R18
+R19
+R20
+!i113 1
+R12
+R13
+Etb_ip_ttl
+Z24 w1769893743
+R2
+R3
+R4
+R0
+Z25 8C:/Users/Ilma/Desktop/APC projekti/ip_modul/tb_ip_ttl.vhd
+Z26 FC:/Users/Ilma/Desktop/APC projekti/ip_modul/tb_ip_ttl.vhd
+l0
+L5
+Vi9<OA_12Ld[V=ChLH^noR3
+!s100 [D@d8MH]W==851[@9K_T`3
+R7
+32
+R17
+!i10b 1
+R18
+Z27 !s90 -reportprogress|300|-work|work|C:/Users/Ilma/Desktop/APC projekti/ip_modul/tb_ip_ttl.vhd|
+Z28 !s107 C:/Users/Ilma/Desktop/APC projekti/ip_modul/tb_ip_ttl.vhd|
+!i113 1
+R12
+R13
+Abehavior
+R2
+R3
+R4
+DEx4 work 9 tb_ip_ttl 0 22 i9<OA_12Ld[V=ChLH^noR3
+l35
+L8
+VQ5=Id@LE=LQQP<kW577k`0
+!s100 mU9LXYMMh4ERZMI0S;f0g2
+R7
+32
+R17
+!i10b 1
+R18
+R27
+R28
+!i113 1
+R12
+R13
