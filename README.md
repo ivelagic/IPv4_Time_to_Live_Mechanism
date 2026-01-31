@@ -196,12 +196,12 @@ Na slici 8 prikazan je State Machine Viewer dijagram. Dati dijagram se slaže sa
 
 ## ModelSim
 
-Za testiranje datog modula kreiranu su dva testbench-a. <br>
+Za testiranje datog modula prikazana su tri testbench-a. <br>
 
 **1. Testbench za TTL > 1** <br>
 
 Simulira dolazni IPv4 paket sa vrijednosti TTL većom od 1.
-Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP poruka nije generisana.
+Provjerava da modul prosljeđuje paket bez aktiviranja `drop` signala i da ICMP poruka nije generisana.
 
 <p align="center">
   <img src="VHDL/wave1.png " width="500">
@@ -210,12 +210,10 @@ Provjerava da modul prosljeđuje paket bez aktiviranja drop signala i da ICMP po
   <em> Slika 9: Prikaz testbench-a za prvi scenarij </em>
 </p>
 
-Dobijeni waveform, prikazan na slici 9, u skladu je sa WaveDrom dijagramom prethodno prikazanim. 
-
 **2. Testbench za TTL = 1** <br>
 
 Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
-Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP.
+Provjerava da modul aktivira `drop` signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP. Iako FSM prelazi u stanje SEND_ICMP u trenutku kada se detektuje kraj ulaznog paketa (`in_eop`), slanje ICMP paketa na izlazu započinje jedan takt kasnije nego što je očekivano. Do ovog ponašanja dolazi zbog sinhrone realizacije FSM-a, gdje se promjena stanja i ažuriranje izlaznih signala dešavaju na uzlaznoj ivici takta. Zbog toga se vrijednosti izlaznih signala fizički pojavlju tek u narednom taktu, što otežava da se slanje ICMP paketa započne u istom taktu u kojem se završi prijem ulaznog paketa. Prethodno definisan WaveDrom za ovaj scenarij ( Slika 5) prilagođen je datom testbench-u.
 
 <p align="center">
   <img src="VHDL/wave2.png " width="500">
@@ -224,7 +222,17 @@ Provjerava da modul aktivira drop signal tokom prijema paketa i da ICMP Time Exc
   <em> Slika 10: Prikaz testbench-a za drugi scenarij </em>
 </p>
 
-Dobijeni waveform, prikazan na slici 10, u skladu je sa WaveDrom dijagramom prethodno prikazanim.  
+
+**3. Testbench za backpressur scenarij** <br>
+
+Simulira dolazni IPv4 paket kod kojeg je vrijednost TTL jednaka 1, pri čemu je izlazni signal `out_ready` privremeno deaktiviran. Time se uvodi backpressure na izlaznom interfejsu. Testbench provjerava da modul ispravno aktivira `drop` signal tokom prijema paketa, te da se generisanje ICMP Time Exceeded poruke u stanju SEND_ICMP odgađa sve dok `out_ready` ponovo ne postane aktivan.
+
+<p align="center">
+  <img src="VHDL/wave3.png " width="500">
+</p>
+<p align="center">
+  <em> Slika 10: Prikaz testbench-a za backpressure scenarij </em>
+</p>
 
 # Zaključak
 
