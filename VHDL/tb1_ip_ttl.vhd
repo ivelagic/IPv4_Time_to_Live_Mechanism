@@ -1,0 +1,94 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.ALL;
+USE ieee.numeric_std.ALL;
+
+ENTITY tb1_ip_ttl IS
+END tb1_ip_ttl;
+
+ARCHITECTURE behavior OF tb1_ip_ttl IS 
+
+    COMPONENT ip_ttl
+    PORT (
+        clock, reset : IN  std_logic;
+        in_data      : IN  std_logic_vector(7 DOWNTO 0);
+        in_valid     : IN  std_logic;
+        in_sop       : IN  std_logic;
+        in_eop       : IN  std_logic;
+        in_ready     : OUT std_logic;
+        out_data     : OUT std_logic_vector(7 DOWNTO 0);
+        out_valid    : OUT std_logic;
+        out_sop      : OUT std_logic;
+        out_eop      : OUT std_logic;
+        out_ready    : IN  std_logic;
+        drop         : OUT std_logic
+    );
+    END COMPONENT;
+
+    SIGNAL clock, reset : std_logic := '0';
+    SIGNAL in_data      : std_logic_vector(7 DOWNTO 0) := (OTHERS => '0');
+    SIGNAL in_valid, in_sop, in_eop, out_ready : std_logic := '0';
+    SIGNAL in_ready, out_valid, out_sop, out_eop, drop : std_logic;
+    SIGNAL out_data     : std_logic_vector(7 DOWNTO 0);
+
+    CONSTANT clk_period : TIME := 10 ns;
+
+BEGIN
+
+    uut: ip_ttl PORT MAP (clock, reset, in_data, in_valid, in_sop, in_eop, in_ready, out_data, out_valid, out_sop, out_eop, out_ready, drop);
+
+    clk_process : PROCESS
+    BEGIN
+        clock <= '1'; WAIT FOR clk_period/2;
+        clock <= '0'; WAIT FOR clk_period/2;
+    END PROCESS;
+
+    stim_proc : PROCESS
+    BEGIN
+        reset <= '1';
+        out_ready <= '1';
+        WAIT FOR 10 ns;
+        reset <= '0';
+        
+        in_valid <= '1'; in_sop <= '1';
+        --Ethernet header
+        in_data <= x"FF"; WAIT FOR 10 ns; 
+        in_sop <= '0';
+        in_data <= x"FF"; WAIT FOR 10 ns; 
+        in_data <= x"FF"; WAIT FOR 10 ns;
+        in_data <= x"FF"; WAIT FOR 10 ns;
+        in_data <= x"FF"; WAIT FOR 10 ns;
+        in_data <= x"FF"; WAIT FOR 10 ns;
+        in_data <= x"00"; WAIT FOR 10 ns;
+        in_data <= x"11"; WAIT FOR 10 ns;
+        in_data <= x"22"; WAIT FOR 10 ns;
+        in_data <= x"33"; WAIT FOR 10 ns;
+        in_data <= x"44"; WAIT FOR 10 ns;
+        in_data <= x"55"; WAIT FOR 10 ns;
+        in_data <= x"08"; WAIT FOR 10 ns;
+        in_data <= x"00"; WAIT FOR 10 ns;
+        -- IP Header
+        in_data <= x"45"; WAIT FOR 10 ns;
+        in_data <= x"00"; WAIT FOR 10 ns;
+        in_data <= x"3C"; WAIT FOR 10 ns;
+        in_data <= x"01"; WAIT FOR 10 ns; --TTL
+        in_data <= x"11"; WAIT FOR 10 ns;
+        in_data <= x"C0";WAIT FOR 10 ns;
+        in_data <= x"A8"; WAIT FOR 10 ns;
+        in_data <= x"01"; WAIT FOR 10 ns;
+        in_data <= x"01"; WAIT FOR 10 ns;
+        in_data <= x"08"; WAIT FOR 10 ns;
+        in_data <= x"08"; WAIT FOR 10 ns;
+        in_data <= x"08"; WAIT FOR 10 ns;
+        in_data <= x"08"; 
+        in_eop <= '1'; WAIT FOR 10 ns; 
+        in_valid <= '0'; 
+        in_eop <= '0'; 
+        in_data <= x"00";
+
+        WAIT FOR 20 ns;
+        out_ready<='0';
+        
+        WAIT;
+    END PROCESS;
+
+END behavior;
