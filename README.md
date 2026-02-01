@@ -213,7 +213,7 @@ Provjerava da modul prosljeđuje paket bez aktiviranja `drop` signala i da ICMP 
 **2. Testbench za TTL = 1** <br>
 
 Simulira dolazni IPv4 paket sa vrijednosti TTL tačno 1.
-Provjerava da modul aktivira `drop` signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP. Iako FSM prelazi u stanje SEND_ICMP u trenutku kada se detektuje kraj ulaznog paketa (`in_eop`), slanje ICMP paketa na izlazu započinje jedan takt kasnije nego što je očekivano. Do ovog ponašanja dolazi zbog sinhrone realizacije FSM-a, gdje se promjena stanja i ažuriranje izlaznih signala dešavaju na uzlaznoj ivici takta. Zbog toga se vrijednosti izlaznih signala fizički pojavlju tek u narednom taktu, što otežava da se slanje ICMP paketa započne u istom taktu u kojem se završi prijem ulaznog paketa. Prethodno definisan WaveDrom za ovaj scenarij ( Slika 5) prilagođen je datom testbench-u.
+Provjerava da modul aktivira `drop` signal tokom prijema paketa i da ICMP Time Exceeded poruka bude generisana u stanju SEND_ICMP. FSM prelazi u stanje SEND_ICMP u trenutku kada se detektuje kraj ulaznog paketa (`in_eop`), slanje ICMP paketa na izlazu započinje jedan takt kasnije.. Do ovog ponašanja dolazi zbog sinhrone realizacije FSM-a, gdje se promjena stanja i ažuriranje izlaznih signala dešavaju na uzlaznoj ivici takta.
 
 <p align="center">
   <img src="VHDL/wave2.png " width="500">
