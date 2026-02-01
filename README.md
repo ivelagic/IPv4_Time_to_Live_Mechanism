@@ -158,7 +158,7 @@ Code: 0x00  <br>
 Data: 0x45 0x00 0x3C 0x01 0x11 0xC0 0xA8 0x01 0x01 0x08 0x08 0x08 0x08  
 
 <p align="center">
-  <img src="WaveDrom/s2.png " width="800">
+  <img src="WaveDrom/w_2.png " width="800">
 </p>
 <p align="center">
   <em>Slika 5: WaveDrom prikaz za  TTL=1 </em>
